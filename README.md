@@ -1,5 +1,2 @@
 ﻿# group-plan-site
 Project Name: *Drum Roll* Evnt
-
-Group Doc: https://docs.google.com/document/d/1Kc5CGq2HkODqrl7B-Zzj_gQ7PbxWCM5md4poJQkNuAo/edit?usp=sharing
-
