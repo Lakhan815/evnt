@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import Events from './pages/Events'
+import Availability from './pages/Availability'
+import CreateEvent from './pages/CreateEvent'
 import './App.css'
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/availability" element={<Availability />} />
+        <Route path="/create-event" element={<CreateEvent />} />
       </Routes>
     </Router>
   )

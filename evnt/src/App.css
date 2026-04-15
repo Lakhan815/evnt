@@ -4,6 +4,7 @@ html, body {
   height: 100%;
   background-color: #6f4a8e;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 .loginSection {

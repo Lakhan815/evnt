@@ -13,7 +13,7 @@ function Login() {
     if (username === "admin" && password === "admin") {
       setLoggedIn(true)
       setError("")
-      navigate('/events')
+      navigate('/availability')
     } else {
       setError("Invalid username or password")
     }

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import './Events.css'
+import { useNavigate } from 'react-router-dom'
+import './Availability.css'
 
-function Events() {
+function Availability() {
+  const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [availableDates, setAvailableDates] = useState([])
   const [selectedDate, setSelectedDate] = useState(null)
@@ -10,7 +12,7 @@ function Events() {
   const [userName, setUserName] = useState('')
   const [slotDuration, setSlotDuration] = useState(30)
 
-  // Check if we have an access token from OAuth redirect
+  // Check if theres access token from OAuth redirect
   useEffect(() => {
     const hash = window.location.hash
     if (hash.includes('access_token')) {
@@ -47,7 +49,7 @@ function Events() {
 
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    const redirectUri = window.location.origin + '/events'
+    const redirectUri = window.location.origin + '/availability'
     const scope = 'https://www.googleapis.com/auth/calendar.readonly'
     const responseType = 'token'
 
@@ -78,6 +80,12 @@ function Events() {
       }
     }
   }, [slotDuration])
+
+  // Check if a date has any free slots for the given duration
+  const hasAvailableSlots = (dateData, duration) => {
+    const slots = generateTimeSlots(dateData, duration)
+    return slots.some(slot => slot.isFree)
+  }
 
   const fetchFreeBusy = async (token) => {
     console.log('Fetching free/busy data...')
@@ -145,6 +153,22 @@ function Events() {
     setTimeSlots(slots)
   }
 
+  const handleBackToDateSelection = () => {
+    setSelectedDate(null)
+    setTimeSlots([])
+  }
+
+  const handleFreeSlotClick = (slot) => {
+    navigate('/create-event', {
+      state: {
+        date: selectedDate,
+        startTime: slot.start,
+        endTime: slot.end,
+        duration: slotDuration,
+      },
+    })
+  }
+
   const generateTimeSlots = (dateData, duration) => {
     const slots = []
     const dayStart = new Date(`${dateData.dateStr}T00:00:00`)
@@ -191,8 +215,24 @@ function Events() {
   return (
     <div className="eventsContainer">
       <div className="header">
-        <h1>Your Calendar Availability</h1>
+        <h1>Your Availability</h1>
         <div className="userInfo">
+          <div className="durationSelector">
+            <label htmlFor="duration">Slot duration:</label>
+            <select
+              id="duration"
+              value={slotDuration}
+              onChange={(e) => setSlotDuration(Number(e.target.value))}
+            >
+              <option value={15}>15 minutes</option>
+              <option value={30}>30 minutes</option>
+              <option value={60}>1 hour</option>
+              <option value={90}>1.5 hours</option>
+              <option value={120}>2 hours</option>
+              <option value={180}>3 hours</option>
+              <option value={240}>4 hours</option>
+            </select>
+          </div>
           <span>Logged in as: {userName}</span>
           <button className="logoutBtn" onClick={handleGoogleLogout}>
             Logout
@@ -204,72 +244,61 @@ function Events() {
         <p>Loading calendar data...</p>
       ) : availableDates.length === 0 ? (
         <p>No calendar data available</p>
+      ) : !selectedDate ? (
+        // Show dates grid
+        <div className="datesGrid">
+          {availableDates
+            .filter(dateData => hasAvailableSlots(dateData, slotDuration))
+            .map((dateData) => (
+            <button
+              key={dateData.dateStr}
+              className={`dateButton ${dateData.hasBusyTime ? 'busy' : 'free'}`}
+              onClick={() => handleDateClick(dateData)}
+            >
+              {dateData.date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+              })}
+              <br />
+              <small>{dateData.hasBusyTime ? 'Has events' : 'Fully free'}</small>
+            </button>
+          ))}
+        </div>
       ) : (
-        <>
-          <div className="datesGrid">
-            {availableDates.map((dateData) => (
-              <button
-                key={dateData.dateStr}
-                className={`dateButton ${dateData.hasBusyTime ? 'busy' : 'free'} ${
-                  selectedDate === dateData.dateStr ? 'selected' : ''
-                }`}
-                onClick={() => handleDateClick(dateData)}
+        // Show time slots view
+        <div className="timeSlotsView">
+          <button className="backBtn" onClick={handleBackToDateSelection}>
+            ← Back to Dates
+          </button>
+          <h2>Available times for {selectedDate}</h2>
+          <div className="slotsGrid">
+            {timeSlots.map((slot, idx) => (
+              <div
+                key={idx}
+                className={`timeSlot ${slot.isFree ? 'free' : 'busy'}`}
+                onClick={() => slot.isFree && handleFreeSlotClick(slot)}
+                style={{ cursor: slot.isFree ? 'pointer' : 'default' }}
               >
-                {dateData.date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
+                {slot.start.toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true,
+                })}{' '}
+                -{' '}
+                {slot.end.toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true,
                 })}
                 <br />
-                <small>{dateData.hasBusyTime ? 'Has events' : 'Fully free'}</small>
-              </button>
+                <small>{slot.isFree ? '✓ Free' : '✗ Busy'}</small>
+              </div>
             ))}
           </div>
-
-          {selectedDate && (
-            <div className="timeSlotsContainer">
-              <div className="slotsHeader">
-                <h2>Time slots for {selectedDate}</h2>
-                <div className="durationSelector">
-                  <label htmlFor="duration">Slot duration:</label>
-                  <select
-                    id="duration"
-                    value={slotDuration}
-                    onChange={(e) => setSlotDuration(Number(e.target.value))}
-                  >
-                    <option value={15}>15 minutes</option>
-                    <option value={30}>30 minutes</option>
-                    <option value={60}>1 hour</option>
-                    <option value={90}>1.5 hours</option>
-                    <option value={120}>2 hours</option>
-                    <option value={180}>3 hours</option>
-                  </select>
-                </div>
-              </div>
-              <div className="slotsGrid">
-                {timeSlots.map((slot, idx) => (
-                  <div key={idx} className={`timeSlot ${slot.isFree ? 'free' : 'busy'}`}>
-                    {slot.start.toLocaleTimeString('en-US', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })}{' '}
-                    -{' '}
-                    {slot.end.toLocaleTimeString('en-US', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })}
-                    <br />
-                    <small>{slot.isFree ? '✓ Free' : '✗ Busy'}</small>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
+        </div>
       )}
     </div>
   )
 }
 
-export default Events
+export default Availability

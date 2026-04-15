@@ -19,7 +19,7 @@ function SignUp() {
       return
     }
     setError("")
-    navigate('/events')
+    navigate('/availability')
   }
 
   return (

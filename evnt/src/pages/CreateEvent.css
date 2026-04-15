@@ -1,0 +1,127 @@
+.createEventContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #6f4a8e;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.eventCard {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 8px 8px 0px #7D82B8;
+  overflow: hidden;
+}
+
+.eventCard h1 {
+  font-size: 32px;
+  color: #6f4a8e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.timeInfo {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.dateTime {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.timeRange {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.formGroup input,
+.formGroup textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #8a79a8;
+  border-radius: 6px;
+  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+  color: black;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  background: white;
+  border-color: #6f4a8e;
+}
+
+.formGroup textarea {
+  resize: vertical;
+}
+
+.error {
+  color: #d97a7a;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.createBtn,
+.cancelBtn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.createBtn {
+  background-color: #4db8a8;
+  color: white;
+}
+
+.createBtn:hover {
+  background-color: #3aa696;
+}
+
+.cancelBtn {
+  background-color: #d97a7a;
+  color: white;
+}
+
+.cancelBtn:hover {
+  background-color: #c56565;
+}
