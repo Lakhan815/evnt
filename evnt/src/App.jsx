@@ -2,7 +2,6 @@ import { useState } from 'react'
 import johnImg from './assets/JohnSmith.png' //the johnsmith png that was imported
 import calenderIcon from './assets/CalenderIcon.png'
 import friendIcon from './assets/FriendIcon.png'
-import johnImg from './assets/JohnSmith.png'
 import './App.css'
 
 function App() {
@@ -19,6 +18,9 @@ function App() {
       setError("Invalid username or password")
     }
   }
+  const handleClick = () => {
+  console.log("clicked")
+}
 
   if (loggedIn) { //currently under construction
     return (//container shall hold 4 containers within, it is the 4 boxes in the figma
@@ -29,7 +31,14 @@ function App() {
           </section>
           <section className="loggedInTitle">EVNT</section> 
           <section className="sideButtons">
-
+            <label>Friend</label>
+            <button onClick={handleClick} className="friendButton">
+              <img src={friendIcon} alt="Friendssss" />
+            </button>
+            <label>Calender:</label>
+            <button onClick={handleClick} className="calenderButton">
+              <img src={calenderIcon} alt="Calenderssss"/>
+            </button>
           </section>
       </div>
     )
