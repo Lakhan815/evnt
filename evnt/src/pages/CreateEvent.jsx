@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './CreateEvent.css'
+import { RWebShare } from 'react-web-share-api'
 
 function CreateEvent() {
   const navigate = useNavigate()
@@ -104,4 +105,19 @@ function CreateEvent() {
   )
 }
 
+function App () {
+  return (
+    <div>
+      <RWebShare
+        data= {{
+          text: "Check out this event",
+          title: "Event Share"
+        }}
+        onClick={() => console.log("shared event")}
+        >
+          <button>Share</button>
+      </RWebShare>
+    </div>
+  )
+}
 export default CreateEvent
