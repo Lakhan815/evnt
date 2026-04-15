@@ -1,7 +1,8 @@
 import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from './assets/vite.svg'
-//import heroImg from './assets/hero.png'
+import johnImg from './assets/JohnSmith.png' //the johnsmith png that was imported
+import calenderIcon from './assets/CalenderIcon.png'
+import friendIcon from './assets/FriendIcon.png'
+import johnImg from './assets/JohnSmith.png'
 import './App.css'
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [error, setError] = useState("")
 
-  const handleLogin = () => {
+  const handleLogin = () => { //essentially just checks if the username and password are correct)
     if (username === "John12" && password === "Smith12") {
       setLoggedIn(true)
       setError("")
@@ -19,17 +20,22 @@ function App() {
     }
   }
 
-  if (loggedIn) {
-    return (
+  if (loggedIn) { //currently under construction
+    return (//container shall hold 4 containers within, it is the 4 boxes in the figma
       <div className="container">
-          <section className="Welcome Screen">
+          <section className="welcomeCard">
+            <img src={johnImg} alt="John Smith" className="profileImg"/>
             <h1>Good Afternoon, {username}!</h1>
+          </section>
+          <section className="loggedInTitle">EVNT</section> 
+          <section className="sideButtons">
+
           </section>
       </div>
     )
   }
 
-  return (
+  return ( //the first loggin screen. not much to it than that
     <>
       <section className="loginSection">
         <h1 className="title">EVNT</h1>
