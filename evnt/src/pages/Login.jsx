@@ -32,6 +32,9 @@ function Login() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
           <button onClick={handleLogin}>Login</button>
           {error && <p style={{ color: "red" }}>{error}</p>}
+          <p style={{ marginTop: '20px' }}>
+            Don't have an account? <a href="/signup" style={{ color: '#6f4a8e', textDecoration: 'none', fontWeight: 'bold' }}>Sign Up</a>
+          </p>
         </section>
       </section>
     </>

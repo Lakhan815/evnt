@@ -6,9 +6,12 @@ function Home() {
   return (
     <section>
     <h1>Make moments happen. Plan an evnt.</h1>
-    
+
     <button onClick={() => navigate('/login')}>
       Login
+    </button>
+    <button onClick={() => navigate('/signup')}>
+      Sign Up
     </button>
     </section>
   )
