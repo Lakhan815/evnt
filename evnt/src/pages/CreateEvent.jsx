@@ -191,20 +191,25 @@ function CreateEvent() {
 }
 
 //*Just A Test Rn - No Domain means No Link*//
-function App() {
-  return (
-    <div>
-      <RWebShare
-        data={{
-          text: "Check out this event",
-          title: "Event Share",
-        }}
-        onClick={() => console.log("shared event")}
-      >
-        <button>Share</button>
-      </RWebShare>
-    </div>
-  );
+function ShareButton() {
+  const share = async () => {
+    const url = "https://eventapp.vercel.app/create-event";
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Event",
+          text: "Checkout this event",
+          url: "https://eventapp.vercel.app/create-event"
+        });
+      } catch (err) {
+        console.log("Share cancelled or failed", err);
+      }
+    } else {
+      await navigator.clipboard.writeText("https://eventapp.vercel.app/create-event");
+      alert("Link copied to clipboard!");
+    }
+  }
 }
 
 export default CreateEvent;
