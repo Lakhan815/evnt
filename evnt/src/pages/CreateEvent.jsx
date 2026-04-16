@@ -191,29 +191,58 @@ function CreateEvent() {
 }
 
 //*Just A Test Rn - No Domain means No Link*//
-export default function ShareButton() {
-  const share = async () => {
-    const url = "https://eventapp.vercel.app/create-event";
+import React, { useState } from 'react';
 
-    if (navigator.share) {
+export default function ShareButton() {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleShare = async () => {
+    // Dynamically get the current URL or use your specific link
+    const shareData = {
+      title: "Event",
+      text: "Check out this event!",
+      url: window.location.href, // Or your "https://eventapp.vercel.app/..."
+    };
+
+    // Check if the browser supports the native share API
+    if (navigator.share && navigator.canShare(shareData)) {
       try {
-        await navigator.share({
-          title: "Event",
-          text: "Checkout this event",
-          url: url,
-        });
+        await navigator.share(shareData);
+        console.log("Shared successfully");
       } catch (err) {
-        console.log("Share cancelled or failed", err);
+        // Log errors only if they aren't 'AbortError' (user closed the tray)
+        if (err.name !== 'AbortError') {
+          console.error("Error sharing:", err);
+        }
       }
     } else {
-      await navigator.clipboard.writeText(url);
-      alert("Link copied to clipboard!");
+      // Fallback for browsers without Web Share API
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        setIsCopied(true);
+        
+        // Reset the "Copied" message after 2 seconds
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (err) {
+        console.error("Clipboard fallback failed:", err);
+      }
     }
   };
 
   return (
-    <button onClick={share}>
-      Share Event
+    <button 
+      onClick={handleShare}
+      style={{
+        padding: '10px 20px',
+        backgroundColor: '#0070f3',
+        color: 'white',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '16px'
+      }}
+    >
+      {isCopied ? "Link Copied!" : "Share Event"}
     </button>
   );
 }
