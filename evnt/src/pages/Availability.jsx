@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Availability.css";
 
 function Availability() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // react router
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [availableDates, setAvailableDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -13,7 +13,7 @@ function Availability() {
   const [slotDuration, setSlotDuration] = useState(30);
   const [selectedSlots, setSelectedSlots] = useState([]);
 
-  // mysite.com/availability#access_token=123...
+  // evntapp.vercel.app/availability#access_token=123...
   useEffect(() => {
     const hash = window.location.hash;
     if (hash.includes("access_token")) {
@@ -38,6 +38,7 @@ function Availability() {
     }
   }, []);
 
+  // repeating user
   useEffect(() => {
     const savedToken = localStorage.getItem("googleAccessToken");
     const tokenExpiry = localStorage.getItem("googleTokenExpiry");
@@ -48,7 +49,7 @@ function Availability() {
     }
   }, []);
 
-  // sends user to Google login
+  // sends user to Google login, generates long google link thing
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = window.location.origin + "/availability";
@@ -57,6 +58,7 @@ function Availability() {
     window.location.href = authUrl;
   };
 
+  // clean up after logout for security purposes
   const handleGoogleLogout = () => {
     setIsLoggedIn(false);
     setUserName("");
@@ -68,6 +70,7 @@ function Availability() {
     localStorage.removeItem("googleTokenExpiry");
   };
 
+  // generates dates and time slots
   useEffect(() => {
     if (selectedDate && availableDates.length > 0) {
       const dateData = availableDates.find((d) => d.dateStr === selectedDate);
@@ -75,6 +78,7 @@ function Availability() {
     }
   }, [slotDuration, selectedDate]);
 
+  // gets uesr availability through freebusy
   const fetchFreeBusy = async (token) => {
     setLoading(true);
     try {
@@ -112,6 +116,7 @@ function Availability() {
     }
   };
 
+  // organizes trash google busy list into functional folders per day
   const extractAvailableDates = (busyTimes, startDate, endDate) => {
     const dates = [];
     let curr = new Date(startDate);
