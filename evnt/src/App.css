@@ -8,7 +8,7 @@ html, body {
   height: 100%;
   background: linear-gradient(-45deg, #7D82B8, #7B4B94, #4b4e7a, #5c2d75);
   background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  animation: gradientBG 8s ease infinite;
   background-attachment: fixed;
   font-family: Arial, sans-serif;
   overflow: hidden;

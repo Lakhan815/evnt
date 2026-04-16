@@ -13,6 +13,7 @@ function Availability() {
   const [slotDuration, setSlotDuration] = useState(30);
   const [selectedSlots, setSelectedSlots] = useState([]);
 
+  // mysite.com/availability#access_token=123...
   useEffect(() => {
     const hash = window.location.hash;
     if (hash.includes("access_token")) {
@@ -47,6 +48,7 @@ function Availability() {
     }
   }, []);
 
+  // sends user to Google login
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = window.location.origin + "/availability";
@@ -162,12 +164,26 @@ function Availability() {
 
   if (!isLoggedIn)
     return (
-      <div className="eventsContainer">
-        <h1 className="gradient-text">evnt</h1>
-        <p>Connect your calendar to get started.</p>
-        <button className="googleLoginBtn" onClick={handleGoogleLogin}>
-          📅 Login with Google
-        </button>
+      <div className="home-void-container">
+        <div className="main-app-box">
+          <div className="hero">
+            <span className="badge">Calendar Sync</span>
+            <h1 className="hero-title">
+              Connect to <span className="gradient-text">evnt</span>
+            </h1>
+            <p className="hero-subtitle">
+              Securely sync your Google Calendar to see when you're free. <br />Days highlighted green are the best days to plan an evnt.
+            </p>
+            <div className="button-group">
+              <button className="btn-primary" onClick={handleGoogleLogin}>
+                Login with Google 🗓️
+              </button>
+              <button className="btn-secondary" onClick={() => navigate('/')}>
+                Back Home
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
 
