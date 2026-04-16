@@ -5,6 +5,17 @@ import SignUp from './pages/SignUp'
 import Availability from './pages/Availability'
 import CreateEvent from './pages/CreateEvent'
 import './App.css'
+import ShareButton from "./ShareButton";
+
+export default function App() {
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>My Event App</h1>
+
+      <ShareButton />
+    </div>
+  );
+}
 
 function App() {
   return (
