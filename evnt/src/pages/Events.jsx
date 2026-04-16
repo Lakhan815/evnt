@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Events.css";
-const tmAPI = import.meta.env.REACT_APP_TM_API_KEY;
+const tmAPI = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
 function Events() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,7 +64,7 @@ function Events() {
       setLoading(true);
       try {
         const params = new URLSearchParams({
-          apikey: tmiAPI,
+          apikey: tmAPI,
           keyword,
           city: city.trim(),
           countryCode: "US",
@@ -236,12 +236,36 @@ function Events() {
   return (
     <div className="eventsContainer">
       <div className="header">
-        <h1>Your Calendar Availability</h1>
+        <h1>EVNT</h1>
         <div className="userInfo">
           <span>Logged in as: {userName}</span>
           <button className="logoutBtn" onClick={handleGoogleLogout}>
             Logout
           </button>
+        </div>
+      </div>
+
+      <div className="searchSection">
+        <input
+          placeholder="Search events..."
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <input
+          placeholder="City (e.g. New York)"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        {loading && <p>Loading...</p>}
+        <div className="event-grid">
+          {events.map((event) => (
+            <div key={event.id} className="event-card">
+              <h3>{event.name}</h3>
+              <p>{event.dates.start.localDate}</p>
+              <p>{event._embedded?.venues?.[0]?.name}</p>
+              <a href={event.url}>Buy Tickets</a>
+            </div>
+          ))}
         </div>
       </div>
 
