@@ -12,7 +12,7 @@ function Home() {
         <section className="hero">
           <div className="badge">Made for Rutgers Blueprint :)</div>
           
-          <h2>Make moments happen... for real</h2>
+          <h2>make plans happen... like for real</h2>
 
           <h1 className="hero-title">
             Plan an <span className="gradient-text">evnt</span>

@@ -220,6 +220,25 @@
   opacity: 0.9;
 }
 
+.timeSlot.selected {
+  background: #7B4B94 !important;
+  color: white;
+  border: 1px solid white;
+}
+
+.floatingNextBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background: #7B4B94;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
 @media (max-width: 768px) {
   .datesGrid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));

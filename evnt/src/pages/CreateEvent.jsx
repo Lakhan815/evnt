@@ -7,6 +7,7 @@ function CreateEvent() {
   const navigate = useNavigate()
   const location = useLocation()
   const state = location.state || {}
+  const slots = state.slots || []
 
   const [eventName, setEventName] = useState('')
   const [eventDescription, setEventDescription] = useState('')
@@ -41,12 +42,10 @@ function CreateEvent() {
     console.log('Event created:', {
       name: eventName,
       description: eventDescription,
-      date: state.date,
-      startTime: formatTime(state.startTime),
-      endTime: formatTime(state.endTime),
+      options: slots,
     })
-    // Here you would normally save the event to your backend
-    alert(`Event "${eventName}" created for ${formatDate(state.date)} from ${formatTime(state.startTime)} to ${formatTime(state.endTime)}`)
+    
+    alert(`Event "${eventName}" created with ${slots.length} time options!`)
     navigate('/availability')
   }
 
@@ -60,12 +59,16 @@ function CreateEvent() {
         <h1>Create Event</h1>
 
         <div className="timeInfo">
-          <p className="dateTime">
-            <strong>{formatDate(state.date)}</strong>
-          </p>
-          <p className="timeRange">
-            {formatTime(state.startTime)} - {formatTime(state.endTime)}
-          </p>
+          {slots.map((slot, index) => (
+            <div key={index} className="slotWrapper">
+              <p className="dateTime">
+                <strong>{formatDate(slot.dateStr)}</strong>
+              </p>
+              <p className="timeRange">
+                {formatTime(slot.start)} - {formatTime(slot.end)}
+              </p>
+            </div>
+          ))}
         </div>
 
         <div className="formGroup">
