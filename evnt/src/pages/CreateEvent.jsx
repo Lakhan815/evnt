@@ -26,7 +26,9 @@ function CreateEvent() {
     const handler = setTimeout(async () => {
       if (!city.trim()) return;
       setLoading(true);
+      //pulls from the api and sets the events state to the results
       try {
+        //builds the parameters for the api to search easier
         const params = new URLSearchParams({
           apikey: tmAPI,
           keyword,
@@ -34,6 +36,7 @@ function CreateEvent() {
           countryCode: "US",
           size: 20,
         });
+        //syncs it to the date to the dates selected
         if (slotDates.length > 0) {
           params.append("startDateTime", `${slotDates[0]}T00:00:00Z`);
           params.append(
@@ -41,11 +44,13 @@ function CreateEvent() {
             `${slotDates[slotDates.length - 1]}T23:59:59Z`,
           );
         }
+        //actual get request to the api
         const res = await fetch(
           `https://app.ticketmaster.com/discovery/v2/events.json?${params}`,
         );
         const data = await res.json();
         setEvents(data._embedded?.events ?? []);
+        //error handling
       } catch (err) {
         console.error(err);
       } finally {
@@ -148,7 +153,7 @@ function CreateEvent() {
           </div>
         </div>
       </div>
-
+      /* Second panel showing all of the events for day selected */
       <div className="createEventContainer">
         <div className="eventCard">
           <h1>Find Events Nearby</h1>
