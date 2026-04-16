@@ -1,3 +1,12 @@
+.pageDisplay {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 24px;
+  min-height: 100vh;
+}
+
 .createEventContainer {
   height: 100vh;
   width: 100vw;
@@ -35,6 +44,11 @@
   margin-bottom: 24px;
   text-align: center;
   font-weight: 700;
+}
+
+.event-grid {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .timeInfo {
@@ -83,7 +97,7 @@
   border: 1px solid #333;
   border-radius: 8px;
   /* FIXED: Use solid background to prevent purple bleed-through */
-  background: #121212; 
+  background: #121212;
   color: white;
   font-family: var(--sans);
   font-size: 14px;
@@ -94,7 +108,7 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #7B4B94;
+  border-color: #7b4b94;
   background: #1a1a1a; /* Subtle change on focus */
 }
 
@@ -104,7 +118,8 @@
   margin-top: 10px;
 }
 
-.createBtn, .cancelBtn {
+.createBtn,
+.cancelBtn {
   flex: 1;
   padding: 14px;
   border: none;
@@ -112,7 +127,9 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
 }
 
 .createBtn {
@@ -126,7 +143,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.createBtn:hover, .cancelBtn:hover {
+.createBtn:hover,
+.cancelBtn:hover {
   opacity: 0.85;
 }
 
