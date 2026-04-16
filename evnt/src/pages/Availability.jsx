@@ -117,6 +117,7 @@ function Availability() {
   };
 
   // organizes trash google busy list into functional folders per day
+  // 2013-02-14T13:15:03-08:00
   const extractAvailableDates = (busyTimes, startDate, endDate) => {
     const dates = [];
     let curr = new Date(startDate);

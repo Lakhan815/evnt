@@ -153,7 +153,7 @@ function CreateEvent() {
           </div>
         </div>
       </div>
-      /* Second panel showing all of the events for day selected */
+      {/*Second panel showing all of the events for day selected */ */}
       <div className="createEventContainer">
         <div className="eventCard">
           <h1>Find Events Nearby</h1>
