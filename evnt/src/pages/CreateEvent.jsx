@@ -191,7 +191,7 @@ function CreateEvent() {
 }
 
 //*Just A Test Rn - No Domain means No Link*//
-function ShareButton() {
+export default function ShareButton() {
   const share = async () => {
     const url = "https://eventapp.vercel.app/create-event";
 
@@ -200,17 +200,18 @@ function ShareButton() {
         await navigator.share({
           title: "Event",
           text: "Checkout this event",
-          url: "https://eventapp.vercel.app/create-event"
+          url: url,
         });
       } catch (err) {
         console.log("Share cancelled or failed", err);
       }
     } else {
-      await navigator.clipboard.writeText("https://eventapp.vercel.app/create-event");
+      await navigator.clipboard.writeText(url);
       alert("Link copied to clipboard!");
     }
   };
-return (
+
+  return (
     <button onClick={share}>
       Share Event
     </button>
