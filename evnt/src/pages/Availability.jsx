@@ -13,6 +13,7 @@ function Availability() {
   const [slotDuration, setSlotDuration] = useState(30)
   const [selectedSlots, setSelectedSlots] = useState([])
 
+  // mysite.com/availability#access_token=123...
   useEffect(() => {
     const hash = window.location.hash
     if (hash.includes('access_token')) {
@@ -40,6 +41,7 @@ function Availability() {
     }
   }, [])
 
+  // sends user to Google login
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
     const redirectUri = window.location.origin + '/availability'
