@@ -209,7 +209,13 @@ function ShareButton() {
       await navigator.clipboard.writeText("https://eventapp.vercel.app/create-event");
       alert("Link copied to clipboard!");
     }
-  }
+  };
+return (
+    <button onClick={share}>
+      Share Event
+    </button>
+  );
 }
+
 
 export default CreateEvent;
