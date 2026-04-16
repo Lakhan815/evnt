@@ -168,10 +168,16 @@ function Availability() {
                 </div>
               )
             })}
+            {selectedSlots.length > 0 && (
+              <button className="floatingNextBtn" onClick={() => navigate('/create-event', { state: { slots: selectedSlots } })}>
+                Next ({selectedSlots.length})
+              </button>
+            )}
           </div>
         </div>
       )}
     </div>
   )
 }
+
 export default Availability

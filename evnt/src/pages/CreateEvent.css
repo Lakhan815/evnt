@@ -1,61 +1,78 @@
 .createEventContainer {
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
-  background-color: #6f4a8e;
-  font-family: Arial, sans-serif;
+  padding: 20px;
+  font-family: var(--sans);
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .eventCard {
-  background: #FFFFFF;
+  position: relative;
+  background: #121212;
   width: 100%;
   max-width: 500px;
   padding: 40px;
-  border-radius: 12px;
-  box-shadow: 8px 8px 0px #7D82B8;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.eventCard > * {
+  position: relative;
+  z-index: 2;
 }
 
 .eventCard h1 {
-  font-size: 32px;
-  color: #6f4a8e;
-  margin-bottom: 20px;
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 24px;
   text-align: center;
+  font-weight: 700;
 }
 
 .timeInfo {
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  text-align: center;
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.timeInfo::-webkit-scrollbar {
+  width: 6px;
+}
+.timeInfo::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
 }
 
 .dateTime {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin: 0 0 10px 0;
+  font-size: 15px;
+  color: #f3f4f6;
+  margin: 0 0 4px 0;
 }
 
 .timeRange {
-  font-size: 16px;
-  color: #666;
-  margin: 0;
-}
-
-.formGroup {
-  margin-bottom: 20px;
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0 0 12px 0; /* Added slight margin for list spacing */
 }
 
 .formGroup label {
   display: block;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
   margin-bottom: 8px;
-  color: #333;
+  color: #9ca3af;
 }
 
 .formGroup input,
@@ -63,65 +80,56 @@
   display: block;
   width: 100%;
   padding: 12px;
-  border: 2px solid #8a79a8;
-  border-radius: 6px;
-  background: #f9f9f9;
-  font-family: Arial, sans-serif;
+  border: 1px solid #333;
+  border-radius: 8px;
+  /* FIXED: Use solid background to prevent purple bleed-through */
+  background: #121212; 
+  color: white;
+  font-family: var(--sans);
   font-size: 14px;
   box-sizing: border-box;
-  color: black;
+  box-shadow: none; /* Ensure no weird shadows are being applied */
 }
 
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  background: white;
-  border-color: #6f4a8e;
-}
-
-.formGroup textarea {
-  resize: vertical;
-}
-
-.error {
-  color: #d97a7a;
-  font-weight: bold;
-  margin-bottom: 15px;
-  text-align: center;
+  border-color: #7B4B94;
+  background: #1a1a1a; /* Subtle change on focus */
 }
 
 .buttonGroup {
   display: flex;
-  gap: 10px;
-  margin-top: 30px;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-.createBtn,
-.cancelBtn {
+.createBtn, .cancelBtn {
   flex: 1;
   padding: 14px;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  text-align: center;
+  transition: opacity 0.2s, transform 0.1s;
 }
 
 .createBtn {
-  background-color: #4db8a8;
-  color: white;
-}
-
-.createBtn:hover {
-  background-color: #3aa696;
+  background: #ffffff;
+  color: #000000;
 }
 
 .cancelBtn {
-  background-color: #d97a7a;
-  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.cancelBtn:hover {
-  background-color: #c56565;
+.createBtn:hover, .cancelBtn:hover {
+  opacity: 0.85;
+}
+
+.createBtn:active {
+  transform: scale(0.98);
 }
