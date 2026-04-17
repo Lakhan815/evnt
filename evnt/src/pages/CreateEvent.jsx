@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CreateEvent.css";
 import { RWebShare } from "react-web-share-api";
-
+import {RWebShare} from 'react-web-share'
 const tmAPI = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
 function CreateEvent() {
@@ -191,59 +191,75 @@ function CreateEvent() {
 }
 
 //*Just A Test Rn - No Domain means No Link*//
+function App () {
+  return (
+    <div>
+      <RWebShare
+      data = {{
+        text: "Check out the event",
+        url: "https://eventapp.vercel.app/create-event"
+      }}
+      onClick={() => console.log("shared event")}
+      >
+        <button>Share</button>
+      </RWebShare>
+    </div>
+  )
+}
+//What I wanted to do
 import React, { useState } from 'react';
 
 export default function ShareButton() {
-  const [isCopied, setIsCopied] = useState(false);
+  const [status, setStatus] = useState("Share Event");
 
   const handleShare = async () => {
-    // Dynamically get the current URL or use your specific link
-    const shareData = {
-      title: "Event",
-      text: "Check out this event!",
-      url: window.location.href, // Or your "https://eventapp.vercel.app/..."
-    };
-
-    // Check if the browser supports the native share API
-    if (navigator.share && navigator.canShare(shareData)) {
+    const url = "https://eventapp.vercel.app/create-event";
+    
+  
+    if (navigator.share) {
       try {
-        await navigator.share(shareData);
-        console.log("Shared successfully");
+        await navigator.share({
+          title: "Event",
+          text: "Check out this event!",
+          url: url,
+        });
+        console.log("Successful share");
       } catch (err) {
-        // Log errors only if they aren't 'AbortError' (user closed the tray)
-        if (err.name !== 'AbortError') {
-          console.error("Error sharing:", err);
-        }
+        console.log("Share flow interrupted", err);
       }
-    } else {
-      // Fallback for browsers without Web Share API
+    } 
+    else {
       try {
-        await navigator.clipboard.writeText(shareData.url);
-        setIsCopied(true);
+        await navigator.clipboard.writeText(url);
+        setStatus("Link Copied!");
         
-        // Reset the "Copied" message after 2 seconds
-        setTimeout(() => setIsCopied(false), 2000);
+        setTimeout(() => setStatus("Share Event"), 2000);
       } catch (err) {
-        console.error("Clipboard fallback failed:", err);
+        console.error("Failed to copy:", err);
+        alert("Could not copy link automatically.");
       }
     }
   };
 
+  const buttonStyle = {
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    backgroundColor: status === "Link Copied!" ? "#10b981" : "#3b82f6",
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  };
+
   return (
-    <button 
-      onClick={handleShare}
-      style={{
-        padding: '10px 20px',
-        backgroundColor: '#0070f3',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        fontSize: '16px'
-      }}
-    >
-      {isCopied ? "Link Copied!" : "Share Event"}
-    </button>
+    <div style={{ padding: '20px' }}>
+      <button onClick={handleShare} style={buttonStyle}>
+        {status}
+      </button>
+    </div>
   );
 }
 
