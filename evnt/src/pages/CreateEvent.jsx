@@ -197,7 +197,8 @@ function App () {
       <RWebShare
       data = {{
         text: "Check out the event",
-        url: "https://eventapp.vercel.app/create-event"
+        url: "https://eventapp.vercel.app/create-event",
+        title: "Event"
       }}
       onClick={() => console.log("shared event")}
       >
