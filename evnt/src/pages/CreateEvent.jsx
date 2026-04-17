@@ -207,61 +207,7 @@ function App () {
   )
 }
 //What I wanted to do
-import React, { useState } from 'react';
 
-export default function ShareButton() {
-  const [status, setStatus] = useState("Share Event");
-
-  const handleShare = async () => {
-    const url = "https://eventapp.vercel.app/create-event";
-    
-  
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Event",
-          text: "Check out this event!",
-          url: url,
-        });
-        console.log("Successful share");
-      } catch (err) {
-        console.log("Share flow interrupted", err);
-      }
-    } 
-    else {
-      try {
-        await navigator.clipboard.writeText(url);
-        setStatus("Link Copied!");
-        
-        setTimeout(() => setStatus("Share Event"), 2000);
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        alert("Could not copy link automatically.");
-      }
-    }
-  };
-
-  const buttonStyle = {
-    padding: '12px 24px',
-    fontSize: '16px',
-    fontWeight: '600',
-    backgroundColor: status === "Link Copied!" ? "#10b981" : "#3b82f6",
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-  };
-
-  return (
-    <div style={{ padding: '20px' }}>
-      <button onClick={handleShare} style={buttonStyle}>
-        {status}
-      </button>
-    </div>
-  );
-}
 
 
 export default CreateEvent;
