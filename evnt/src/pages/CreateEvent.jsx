@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CreateEvent.css";
 import { RWebShare } from "react-web-share-api";
-import {RWebShare} from 'react-web-share'
+import { RWebShare } from 'react-web-share'
 const tmAPI = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
 function CreateEvent() {
